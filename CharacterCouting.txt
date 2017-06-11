@@ -1,0 +1,68 @@
+#This code below, reads the plain text file, strips the special characters, convert the Upper case to lower case and then provides the count of each Characters in the 
+#plain text file. Also, this file produces a good visualization of Number of Characters in the file as a Histogram. 
+
+import re
+from collections import Counter
+import numpy as np
+import matplotlib.pyplot as plt
+    
+def CharCount():
+    word_list=[]
+    
+    d={}
+    with open("res.txt") as f:
+        for line in f:
+            for word in line.split():
+                p=re.compile(r'[a-zA-Z]')
+                m=p.findall(word)
+                for char in m:
+                    word_list.extend(char.strip())
+                    WordToLower=[element.lower() for element in word_list]
+                
+    labels, values = zip(*sorted(Counter(WordToLower).items()))
+    
+    indexes = np.arange(26)
+    plt.bar(indexes, values)
+    plt.xticks(indexes,labels)
+    plt.title('Character Count in Resume')
+    plt.xlabel('Characters')
+    plt.ylabel('Count')
+    plt.show()
+    
+    for w in WordToLower:
+        d[w] = WordToLower.count(w)
+    for k in sorted(d):
+        print(k + ':' + str(d[k]))
+    
+if __name__ == '__main__':
+    CharCount()
+
+Output : 
+a:177
+b:31
+c:85
+d:73
+e:222
+f:31
+g:54
+h:59
+i:155
+j:3
+k:14
+l:83
+m:49
+n:155
+o:133
+p:54
+q:4
+r:134
+s:139
+t:150
+u:62
+v:20
+w:23
+x:6
+y:30
+z:5
+ 
+
